@@ -24,8 +24,8 @@ export class News extends Component {
       }
   }
 
-  async componentDidMount(){
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&category=${this.props.category}&apiKey=067bb264b3f746f68f0cb928466c3d81&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+  async updateNews(){
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&category=${this.props.category}&apiKey=067bb264b3f746f68f0cb928466c3d81&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -36,29 +36,17 @@ export class News extends Component {
     })
   }
 
+  async componentDidMount(){
+    this.updateNews();
+  }
+
   handlePrevClick = async () => {
-    console.log("Previous");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=067bb264b3f746f68f0cb928466c3d81&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true});
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    this.setState({
-      page : this.state.page - 1,
-      articles : parsedData.articles,
-      loading : false
-    })
+    this.updateNews();
+    this.setState({page : this.state.page - 1})
   }
   handleNextClick = async () => {
-    console.log("Next");
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=067bb264b3f746f68f0cb928466c3d81&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-      this.setState({loading: true});
-      let data = await fetch(url);
-      let parsedData = await data.json();
-      this.setState({
-        page : this.state.page + 1,
-        articles : parsedData.articles,
-        loading : false
-      })
+    this.updateNews();
+    this.setState({page : this.state.page + 1})
   }
 
   render() {
