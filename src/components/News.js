@@ -69,14 +69,17 @@ export class News extends Component {
         <div className="row my-4">
           {!this.state.loading && this.state.articles.map((element)=>{
               return <div className="col-md-4" key={element.url}>
-                     <NewsItem title ={element.title ? element.title.slice(0,45) : "~Title is unavailable right now! Click on read more to read more about this news."} description ={element.description ? element.description.slice(0,88) : "~Description is unavailable right now! Click on read more to read more about this news."} imageUrl ={element.urlToImage} url ={element.url} />   
+                     <NewsItem title ={element.title ? element.title.slice(0,45) : "~Title is unavailable right now! Click on read more to read more about this news."}
+                     description ={element.description ? element.description.slice(0,88) : "~Description is unavailable right now! Click on read more to read more about this news."}
+                     imageUrl ={element.urlToImage} url ={element.url} author ={element.author} date ={element.publishedAt} source ={element.source.name} />
+
                      </div>
-          })}    
-        </div> 
+          })}
+        </div>
         <div className="container d-flex justify-content-between">
-        <button disabled={this.state.page<=1} type="button" className='btn btn-outline-info mx-2' onClick={this.handlePrevClick}>&larr; Previous</button>  
-        <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)} type="button" className='btn btn-outline-info mx-2' onClick={this.handleNextClick}>Next &rarr;</button>  
-        </div>   
+        <button disabled={this.state.page<=1} type="button" className='btn btn-outline-info mx-2' onClick={this.handlePrevClick}>&larr; Previous</button>
+        <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)} type="button" className='btn btn-outline-info mx-2' onClick={this.handleNextClick}>Next &rarr;</button>
+        </div>
       </div>
     )
   }
